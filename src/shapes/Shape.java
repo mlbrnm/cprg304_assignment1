@@ -5,9 +5,11 @@ public abstract class Shape implements Comparable<Shape>{
     double calcVolume() {
         return 0.0;
     }
+
     double calcBaseArea() {
         return 0.0;
     }
+
     @Override
     public int compareTo(Shape other) {
         if (this.height > other.height) {
@@ -18,6 +20,7 @@ public abstract class Shape implements Comparable<Shape>{
             return 0;
         }
     }
+    
     public Shape(double height) {
         this.height = height;
     }
