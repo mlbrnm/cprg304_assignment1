@@ -146,6 +146,7 @@ public class AppDriver {
         printSortedShapes(copy);
     }
     
+    // This method prints the first, 1000th, and last elements of the sorted shapes array
     public static void printSortedShapes(Shape[] shapes)
     {
         if (shapes == null || shapes.length == 0) {
@@ -155,7 +156,7 @@ public class AppDriver {
         //First element
         System.out.println("First element is: " + shapes[0].getClass().getName() + "    Height: " + shapes[0].getHeight());
         //1000th element
-        for (int i = 1000; i < shapes.length; i += 1000)
+        for (int i = 1000; i <= shapes.length; i += 1000)
         {
             System.out.println(i + "-th element is: " + shapes[i-1].getClass().getName() + "    Height: " + shapes[i-1].getHeight());
         }
