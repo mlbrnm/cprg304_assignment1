@@ -165,9 +165,11 @@ public class AppDriver {
         //1000th element
         for (int i = 1000; i <= shapes.length; i += 1000)
         {
+            propertyValue = getPropertyValue(shapes[i-1], sortField);
             System.out.printf("%d-th element: %-20s %s: %.3f%n", i, shapes[i-1].getClass().getName(), propertyName, propertyValue);
         }
         //Last element
+        propertyValue = getPropertyValue(shapes[shapes.length - 1], sortField);
         System.out.printf("Last element is: %-20s %s: %.3f%n", shapes[shapes.length - 1].getClass().getName(), propertyName, propertyValue);
     }
 
