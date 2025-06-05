@@ -141,9 +141,10 @@ public class AppDriver {
         long startTime = System.nanoTime();
         sorter.sort(copy, comparator);
         long endTime = System.nanoTime();
-        System.out.println(sortName + " run time was " + ((endTime - startTime) / 1000000) + " milliseconds.");
         //print the first, 1000th, and last elements of the sorted array
         printSortedShapes(copy);
+        System.out.println(sortName + " run time was " + ((endTime - startTime) / 1000000) + " milliseconds.");
+
     }
     
     // This method prints the first, 1000th, and last elements of the sorted shapes array
