@@ -69,7 +69,7 @@ public class AppDriver {
         // Sort with each algorithm and time the sort operations (sorting only the shape array)
         sortAndTime("BubbleSort", shapes, comparator, (arr, comp) -> BubbleSort.sort(arr, comp));
         //sortAndTime("InsertionSort", shapes, comparator, (arr, comp) -> InsertionSort.sort(arr, comp));
-        //sortAndTime("SelectionSort", shapes, comparator, (arr, comp) -> SelectionSort.sort(arr, comp));
+        sortAndTime("SelectionSort", shapes, comparator, (arr, comp) -> SelectionSort.sort(arr, comp));
         //sortAndTime("MergeSort", shapes, comparator, (arr, comp) -> MergeSort.sort(arr, comp));
         //sortAndTime("QuickSort", shapes, comparator, (arr, comp) -> QuickSort.sort(arr, comp));
         //sortAndTime("OurSpecialFunSort", shapes, comparator, (arr, comp) -> OurSpecialFunSort.sort(arr, comp));
@@ -143,4 +143,5 @@ public class AppDriver {
         long endTime = System.nanoTime();
         System.out.println(sortName + " run time was " + ((endTime - startTime) / 1000000) + " milliseconds.");
     }
+    
 }
