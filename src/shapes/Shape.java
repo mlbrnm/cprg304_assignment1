@@ -2,6 +2,11 @@ package shapes;
 
 public abstract class Shape implements Comparable<Shape>{
     double height;
+    
+    public double getHeight() {
+        return height;
+    }
+
     double calcVolume() {
         return 0.0;
     }

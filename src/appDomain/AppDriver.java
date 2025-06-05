@@ -142,6 +142,24 @@ public class AppDriver {
         sorter.sort(copy, comparator);
         long endTime = System.nanoTime();
         System.out.println(sortName + " run time was " + ((endTime - startTime) / 1000000) + " milliseconds.");
+        //print the first, 1000th, and last elements of the sorted array
+        printSortedShapes(copy);
     }
     
+    public static void printSortedShapes(Shape[] shapes)
+    {
+        if (shapes == null || shapes.length == 0) {
+            System.out.println("No shapes to display.");
+            return;
+        }
+        //First element
+        System.out.println("First element is: " + shapes[0].getClass().getName() + "    Height: " + shapes[0].getHeight());
+        //1000th element
+        for (int i = 1000; i < shapes.length; i += 1000)
+        {
+            System.out.println(i + "-th element is: " + shapes[i-1].getClass().getName() + "    Height: " + shapes[i-1].getHeight());
+        }
+        //Last element
+        System.out.println("Last element is: " + shapes[shapes.length - 1].getClass().getName() + "    Height: " + shapes[shapes.length - 1].getHeight());
+    }
 }
