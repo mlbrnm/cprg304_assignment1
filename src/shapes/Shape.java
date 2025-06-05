@@ -2,10 +2,6 @@ package shapes;
 
 public abstract class Shape implements Comparable<Shape>{
     double height;
-    
-    public double getHeight() {
-        return height;
-    }
 
     double calcVolume() {
         return 0.0;
@@ -13,6 +9,19 @@ public abstract class Shape implements Comparable<Shape>{
 
     double calcBaseArea() {
         return 0.0;
+    }
+
+    // Getters for height, volume, and base area
+    public double getHeight() {
+        return height;
+    }
+
+    public double getVolume() {
+        return calcVolume();
+    }
+
+    public double getBaseArea() {
+        return calcBaseArea();
     }
 
     @Override

@@ -67,12 +67,12 @@ public class AppDriver {
         }
 
         // Sort with each algorithm and time the sort operations (sorting only the shape array)
-        sortAndTime("BubbleSort", shapes, comparator, (arr, comp) -> BubbleSort.sort(arr, comp));
-        //sortAndTime("InsertionSort", shapes, comparator, (arr, comp) -> InsertionSort.sort(arr, comp));
-        sortAndTime("SelectionSort", shapes, comparator, (arr, comp) -> SelectionSort.sort(arr, comp));
-        //sortAndTime("MergeSort", shapes, comparator, (arr, comp) -> MergeSort.sort(arr, comp));
-        //sortAndTime("QuickSort", shapes, comparator, (arr, comp) -> QuickSort.sort(arr, comp));
-        //sortAndTime("OurSpecialFunSort", shapes, comparator, (arr, comp) -> OurSpecialFunSort.sort(arr, comp));
+        sortAndTime("BubbleSort", shapes, comparator, (arr, comp) -> BubbleSort.sort(arr, comp), sortField);
+        //sortAndTime("InsertionSort", shapes, comparator, (arr, comp) -> InsertionSort.sort(arr, comp), sortField);
+        sortAndTime("SelectionSort", shapes, comparator, (arr, comp) -> SelectionSort.sort(arr, comp), sortField);
+        //sortAndTime("MergeSort", shapes, comparator, (arr, comp) -> MergeSort.sort(arr, comp), sortField);
+        //sortAndTime("QuickSort", shapes, comparator, (arr, comp) -> QuickSort.sort(arr, comp), sortField);
+        //sortAndTime("OurSpecialFunSort", shapes, comparator, (arr, comp) -> OurSpecialFunSort.sort(arr, comp), sortField);
     }
 
     public static Shape[] loadShapesFromFile(String fileName) {
@@ -135,33 +135,70 @@ public class AppDriver {
         void sort(Shape[] shapes, java.util.Comparator<Shape> comparator);
     }
 
-    public static void sortAndTime(String sortName, Shape[] original, java.util.Comparator<Shape> comparator, Sorter sorter) {
+    public static void sortAndTime(String sortName, Shape[] original, java.util.Comparator<Shape> comparator, Sorter sorter, String sortField) {
         // Create a copy of the original array for sorting
         Shape[] copy = Arrays.copyOf(original, original.length);
         long startTime = System.nanoTime();
         sorter.sort(copy, comparator);
         long endTime = System.nanoTime();
         //print the first, 1000th, and last elements of the sorted array
-        printSortedShapes(copy);
+        printSortedShapes(copy, sortField);
         System.out.println(sortName + " run time was " + ((endTime - startTime) / 1000000) + " milliseconds.");
 
     }
     
     // This method prints the first, 1000th, and last elements of the sorted shapes array
-    public static void printSortedShapes(Shape[] shapes)
+    public static void printSortedShapes(Shape[] shapes, String sortField)
     {
         if (shapes == null || shapes.length == 0) {
             System.out.println("No shapes to display.");
             return;
         }
+
+        String propertyName;
+        double propertyValue;
+
         //First element
-        System.out.println("First element is: " + shapes[0].getClass().getName() + "    Height: " + shapes[0].getHeight());
+        propertyName = getPropertyName(sortField);
+        propertyValue = getPropertyValue(shapes[0], sortField);
+        System.out.printf("First element is: %-20s %s: %.3f%n", shapes[0].getClass().getName(), propertyName, propertyValue);
         //1000th element
         for (int i = 1000; i <= shapes.length; i += 1000)
         {
-            System.out.println(i + "-th element is: " + shapes[i-1].getClass().getName() + "    Height: " + shapes[i-1].getHeight());
+            System.out.printf("%d-th element: %-20s %s: %.3f%n", i, shapes[i-1].getClass().getName(), propertyName, propertyValue);
         }
         //Last element
-        System.out.println("Last element is: " + shapes[shapes.length - 1].getClass().getName() + "    Height: " + shapes[shapes.length - 1].getHeight());
+        System.out.printf("Last element is: %-20s %s: %.3f%n", shapes[shapes.length - 1].getClass().getName(), propertyName, propertyValue);
+    }
+
+    //Helper method to get the property name based on the sort field
+    private static String getPropertyName(String sortField) 
+    {
+        switch (sortField.toLowerCase()) 
+        {
+            case "h":
+                return "Height";
+            case "v":
+                return "Volume";
+            case "a":
+                return "Area";
+            default:
+                return "Height";
+        }
+    }
+    //Helper method to get the property value based on the sort field
+    private static double getPropertyValue(Shape shape, String sortField) 
+    {
+        switch (sortField.toLowerCase()) 
+        {
+            case "h":
+                return shape.getHeight();
+            case "v":
+                return shape.getVolume();
+            case "a":
+                return shape.getBaseArea();
+            default:
+                return shape.getHeight();
+        }
     }
 }
