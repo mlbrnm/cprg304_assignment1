@@ -21,7 +21,7 @@ public class AppDriver {
     public static void main(String[] args) {
         String sortField = "h";
         String fileName = "shapes1.txt";
-        if(args.length == 0) {
+        if (args.length == 0) {
             Scanner sc = new Scanner(System.in);
             System.out.print("Enter filename (default shapes1.txt): ");
             String input = sc.nextLine();
@@ -33,6 +33,7 @@ public class AppDriver {
             if (!input.trim().isEmpty()) {
                 sortField = input;
             }
+            sc.close();
         } else {
             for (int i = 0; i < args.length; i++) {
                 if (args[i].equals("-t") && i + 1 < args.length) {
@@ -45,14 +46,12 @@ public class AppDriver {
             }
         }
 
-
         Shape[] shapes = loadShapesFromFile(fileName);
         if (shapes == null) {
             System.out.println("No shapes loaded from file: " + fileName);
             return;
         }
         System.out.println("Loaded " + shapes.length + " shapes from file " + fileName);
-
 
         java.util.Comparator<Shape> comparator;
         if (sortField.equalsIgnoreCase("h")) {
@@ -66,13 +65,16 @@ public class AppDriver {
             comparator = (s1, s2) -> s1.compareTo(s2);
         }
 
-        // Sort with each algorithm and time the sort operations (sorting only the shape array)
+        // Sort with each algorithm and time the sort operations (sorting only the shape
+        // array)
         sortAndTime("BubbleSort", shapes, comparator, (arr, comp) -> BubbleSort.sort(arr, comp), sortField);
-        //sortAndTime("InsertionSort", shapes, comparator, (arr, comp) -> InsertionSort.sort(arr, comp), sortField);
+        sortAndTime("InsertionSort", shapes, comparator, (arr, comp) -> InsertionSort.sort(arr, comp), sortField);
         sortAndTime("SelectionSort", shapes, comparator, (arr, comp) -> SelectionSort.sort(arr, comp), sortField);
-        //sortAndTime("MergeSort", shapes, comparator, (arr, comp) -> MergeSort.sort(arr, comp), sortField);
-        //sortAndTime("QuickSort", shapes, comparator, (arr, comp) -> QuickSort.sort(arr, comp), sortField);
-        //sortAndTime("OurSpecialFunSort", shapes, comparator, (arr, comp) -> OurSpecialFunSort.sort(arr, comp), sortField);
+        sortAndTime("MergeSort", shapes, comparator, (arr, comp) -> MergeSort.sort(arr, comp), sortField);
+        // sortAndTime("QuickSort", shapes, comparator, (arr, comp) ->
+        // QuickSort.sort(arr, comp), sortField);
+        // sortAndTime("OurSpecialFunSort", shapes, comparator, (arr, comp) ->
+        // OurSpecialFunSort.sort(arr, comp), sortField);
     }
 
     public static Shape[] loadShapesFromFile(String fileName) {
@@ -90,9 +92,11 @@ public class AppDriver {
             Shape[] shapes = new Shape[numShapes];
             for (int i = 0; i < numShapes; i++) {
                 line = br.readLine();
-                if (line == null) break;
+                if (line == null)
+                    break;
                 String[] parts = line.split("\\s+");
-                if (parts.length != 3) continue;
+                if (parts.length != 3)
+                    continue;
 
                 String shapeType = parts[0];
                 double height = Double.parseDouble(parts[1]);
@@ -130,26 +134,26 @@ public class AppDriver {
         }
     }
 
-
     interface Sorter {
         void sort(Shape[] shapes, java.util.Comparator<Shape> comparator);
     }
 
-    public static void sortAndTime(String sortName, Shape[] original, java.util.Comparator<Shape> comparator, Sorter sorter, String sortField) {
+    public static void sortAndTime(String sortName, Shape[] original, java.util.Comparator<Shape> comparator,
+            Sorter sorter, String sortField) {
         // Create a copy of the original array for sorting
         Shape[] copy = Arrays.copyOf(original, original.length);
         long startTime = System.nanoTime();
         sorter.sort(copy, comparator);
         long endTime = System.nanoTime();
-        //print the first, 1000th, and last elements of the sorted array
+        // print the first, 1000th, and last elements of the sorted array
         printSortedShapes(copy, sortField);
         System.out.println(sortName + " run time was " + ((endTime - startTime) / 1000000) + " milliseconds.");
 
     }
-    
-    // This method prints the first, 1000th, and last elements of the sorted shapes array
-    public static void printSortedShapes(Shape[] shapes, String sortField)
-    {
+
+    // This method prints the first, 1000th, and last elements of the sorted shapes
+    // array
+    public static void printSortedShapes(Shape[] shapes, String sortField) {
         if (shapes == null || shapes.length == 0) {
             System.out.println("No shapes to display.");
             return;
@@ -158,26 +162,26 @@ public class AppDriver {
         String propertyName;
         double propertyValue;
 
-        //First element
+        // First element
         propertyName = getPropertyName(sortField);
         propertyValue = getPropertyValue(shapes[0], sortField);
-        System.out.printf("First element is: %-20s %s: %.3f%n", shapes[0].getClass().getName(), propertyName, propertyValue);
-        //1000th element
-        for (int i = 1000; i <= shapes.length; i += 1000)
-        {
-            propertyValue = getPropertyValue(shapes[i-1], sortField);
-            System.out.printf("%d-th element: %-20s %s: %.3f%n", i, shapes[i-1].getClass().getName(), propertyName, propertyValue);
+        System.out.printf("First element is: %-20s %s: %.3f%n", shapes[0].getClass().getName(), propertyName,
+                propertyValue);
+        // 1000th element
+        for (int i = 1000; i <= shapes.length; i += 1000) {
+            propertyValue = getPropertyValue(shapes[i - 1], sortField);
+            System.out.printf("%d-th element: %-20s %s: %.3f%n", i, shapes[i - 1].getClass().getName(), propertyName,
+                    propertyValue);
         }
-        //Last element
+        // Last element
         propertyValue = getPropertyValue(shapes[shapes.length - 1], sortField);
-        System.out.printf("Last element is: %-20s %s: %.3f%n", shapes[shapes.length - 1].getClass().getName(), propertyName, propertyValue);
+        System.out.printf("Last element is: %-20s %s: %.3f%n", shapes[shapes.length - 1].getClass().getName(),
+                propertyName, propertyValue);
     }
 
-    //Helper method to get the property name based on the sort field
-    private static String getPropertyName(String sortField) 
-    {
-        switch (sortField.toLowerCase()) 
-        {
+    // Helper method to get the property name based on the sort field
+    private static String getPropertyName(String sortField) {
+        switch (sortField.toLowerCase()) {
             case "h":
                 return "Height";
             case "v":
@@ -188,11 +192,10 @@ public class AppDriver {
                 return "Height";
         }
     }
-    //Helper method to get the property value based on the sort field
-    private static double getPropertyValue(Shape shape, String sortField) 
-    {
-        switch (sortField.toLowerCase()) 
-        {
+
+    // Helper method to get the property value based on the sort field
+    private static double getPropertyValue(Shape shape, String sortField) {
+        switch (sortField.toLowerCase()) {
             case "h":
                 return shape.getHeight();
             case "v":
