@@ -35,23 +35,19 @@ public class OurSpecialFunSort {
         int left = 2 * i + 1;
         int right = 2 * i + 2;
 
-        // Check if left child is larger
         if (left < size && comparator.compare(shapes[left], shapes[largest]) > 0) {
             largest = left;
         }
 
-        // Check if right child is larger
         if (right < size && comparator.compare(shapes[right], shapes[largest]) > 0) {
             largest = right;
         }
 
-        // If the largest is not the current root
         if (largest != i) {
             Shape swap = shapes[i];
             shapes[i] = shapes[largest];
             shapes[largest] = swap;
 
-            // Recursively heapify the affected subtree
             heapify(shapes, size, largest, comparator);
         }
     }
