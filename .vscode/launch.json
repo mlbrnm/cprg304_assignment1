@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Run with HeapSort",
+      "request": "launch",
+      "mainClass": "appDomain.AppDriver",
+      "projectName": "assignment1StartingCode",
+      "args": "-fshapes1.txt -th -sz"
+    }
+  ]
+}
