@@ -10,19 +10,39 @@ import shapes.ComparatorVolume;
 public class AppDriver {
 
     public static void main(String[] args) {
-        String sortField = "h"; // h = height, v = volume, a = base area
-        String fileName = "shapes1.txt";
-        String sortAlgo = "b"; // default: bubble sort
+        String fileName = null;
+        String sortField = null;
+        String sortAlgo = null;
 
-        // ✅ Read from command-line arguments
         for (int i = 0; i < args.length; i++) {
-            if (args[i].startsWith("-f")) {
-                fileName = args[i].substring(2); // -fshapes1.txt
-            } else if (args[i].startsWith("-t")) {
-                sortField = args[i].substring(2); // -tv / -th / -ta
-            } else if (args[i].startsWith("-s")) {
-                sortAlgo = args[i].substring(2); // -sz / -sb etc.
+            String arg = args[i].toLowerCase();
+            switch (arg) {
+                case "-f":
+                    if (i + 1 < args.length) {
+                        fileName = args[++i];
+                    }
+                    break;
+                case "-t":
+                    if (i + 1 < args.length) {
+                        sortField = args[++i];
+                    }
+                    break;
+                case "-s":
+                    if (i + 1 < args.length) {
+                        sortAlgo = args[++i];
+                    }
+                    break;
             }
+        }
+
+        if (fileName == null || sortField == null || sortAlgo == null) {
+            System.out.println("Error: Missing required arguments.");
+            System.out.println("Usage: java -jar Sort.jar -f <filename> -t <type> -s <algorithm>");
+            System.out.println("\nOptions:");
+            System.out.println("  -f, -F: Path to the data file (e.g., shapes1.txt).");
+            System.out.println("  -t, -T: Sort type (h: height, v: volume, a: base area).");
+            System.out.println("  -s, -S: Sort algorithm (b: bubble, s: selection, i: insertion, m: merge, q: quick, z: custom).");
+            return;
         }
 
         Shape[] shapes = loadShapesFromFile(fileName);
