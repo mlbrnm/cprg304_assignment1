@@ -93,9 +93,9 @@ public class AppDriver {
     }
 
     public static Shape[] loadShapesFromFile(String fileName) {
-        File file = new File("res" + File.separator + fileName);
+        File file = new File(fileName);
         if (!file.exists()) {
-            System.out.println("File not found: " + fileName);
+            System.out.println("File not found: " + file.getAbsolutePath());
             return null;
         }
 
