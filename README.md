@@ -33,6 +33,32 @@ Basically, Heap Sort turns the array of shapes into a "max heap." The max heap i
 
 The algorithm then takes the biggest item (from the top of the heap), moves it to the end of the array, and then fixes the heap to make sure the new biggest item is at the top. It keeps doing this until the whole array is sorted.
 
+### Pseudocode and Analysis
+
+**Pseudocode:**
+
+```
+HeapSort(array):
+  // 1. Build the initial max heap
+  BuildMaxHeap(array)
+
+  // 2. Sort the array
+  for i = length of array - 1 down to 1:
+    // Move the largest element (root) to the end
+    swap array[0] with array[i]
+    // Reduce heap size and fix the heap
+    Heapify(array, i, 0)
+```
+
+**Step Analysis:**
+
+1.  **BuildMaxHeap:** This step arranges the initial array into a max heap. It iterates through about half of the elements (`n/2` times) and calls `Heapify` on each one. This process takes roughly `O(n)` operations.
+2.  **Sorting Loop:** This loop runs `n-1` times. In each pass, it performs:
+    - A **swap** operation (constant time, `O(1)`) to move the largest element to its final sorted position.
+    - A call to **`Heapify`** to restore the max heap property on the remaining elements. This takes `O(log n)` time.
+
+Combining these steps, the dominant factor is the sorting loop, which gives Heap Sort its overall time complexity.
+
 ### Complexity Analysis
 
 - **Time Complexity:**
