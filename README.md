@@ -23,13 +23,15 @@ This project is a Java application that sorts a collection of 3D geometric shape
     java -jar Sort.jar -f res/shapes1.txt -t v -s z
     ```
 
-## Custom Sorting Algorithm: Heap Sort
+## Our Custom Sort: Heap Sort
 
-For this project, we chose **Heap Sort** as our custom sorting algorithm. Heap Sort is an efficient, in-place, comparison-based sorting algorithm. It is not stable, but its time complexity is consistently O(n log n) in the average and worst cases, making it a reliable choice for large datasets.
+For our "choose your own" algorithm, we went with **Heap Sort**. It is not stable, but its time complexity is consistently O(n log n) in the average and worst cases, making it a reliable choice for large datasets.
 
 ### How Heap Sort Works
 
-Heap Sort works by first transforming the input array into a **max heap**. A max heap is a complete binary tree where the value of each node is greater than or equal to the value of its children. Once the max heap is built, the algorithm repeatedly swaps the root element (the largest element in the heap) with the last element of the heap, then reduces the heap size by one and "heapifies" the root to maintain the max heap property. This process is repeated until the entire array is sorted.
+Basically, Heap Sort turns the array of shapes into a "max heap." The max heap is a sort of tree structure where the parent node is always bigger than its children. This means the biggest shape is always at the very top.
+
+The algorithm then takes the biggest item (from the top of the heap), moves it to the end of the array, and then fixes the heap to make sure the new biggest item is at the top. It keeps doing this until the whole array is sorted.
 
 ### Complexity Analysis
 
